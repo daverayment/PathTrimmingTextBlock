@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <RootNamespace>PathTrimmingTextBlock</RootNamespace>
+    <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
+    <UseWinUI>true</UseWinUI>
+    <Title>PathTrimmingTextBlock</Title>
+    <Description>A WinUI control derived from TextBlock which uses a path trimming method to fit over-long text strings in the available space.</Description>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Authors>daverayment</Authors>
+    <Copyright>Copyright (c) 2024 David Rayment</Copyright>
+    <PackageIcon>Icon.png</PackageIcon>
+    <PackageProjectUrl>https://github.com/daverayment/PathTrimmingTextBlock</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>WinUI;control;custom control;TextBlock;TextBox;path trimming;path;trim;ellipsis;ellipses;truncate;truncation;formatting</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+      <PackageReference Include="Microsoft.Graphics.Win2D" Version="1.2.0" />
+      <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240311000" />
+      <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.3233" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="Themes\generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Images\Icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+</Project>

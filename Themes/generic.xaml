@@ -1,0 +1,19 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DaveRayment.Controls">
+
+	<Style TargetType="local:PathTrimmingTextBlock">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="local:PathTrimmingTextBlock">
+					<TextBlock x:Name="PART_PathTextBox">
+						<ToolTipService.ToolTip>
+							<ToolTip Content="{TemplateBinding Text}"/>
+						</ToolTipService.ToolTip>
+					</TextBlock>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+</ResourceDictionary>
