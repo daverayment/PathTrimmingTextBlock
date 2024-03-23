@@ -2,6 +2,12 @@
 
 A custom WinUI control that automatically applies path-ellipsis trimming to its contents if the available space is too narrow to contain the full text.
 
+## Illustration
+
+Click to view animation:
+
+> [![Animated Illustration](https://github.com/daverayment/PathTrimmingTextBlock/assets/7127766/4dba348f-b260-4aeb-bf2e-e21570948c2b)](https://github.com/daverayment/PathTrimmingTextBlock/assets/7127766/8308514a-f4f4-4270-8dba-f15189d21fa9)
+
 ## Compatibility
 The control targets the Windows 10 SDK, version 1809 (10.0.17763) as a minimum. This corresponds to the October 2018 update of Windows 10.
 
@@ -21,9 +27,9 @@ and then declare it in your XAML layout:
 
 ```xml
 <Page
-	x:Class="MyViews.MainPage"
-	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Class="MyViews.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:DaveRayment.Controls">
 
     <Grid>
