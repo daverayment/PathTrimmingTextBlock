@@ -16,14 +16,14 @@ public class PathTrimmingTextBlock : Control
 	private TextBlock _textBlock;
 
 	/// <summary>
-	/// The helper used to measure the width of the text.
+	/// The helper instance used to measure the width of the text.
 	/// </summary>
 	private Helpers.TextMeasurement _measurement;
 
 	/// <summary>
 	/// The Text property receives the path to be trimmed. Changes result in
-	/// updates to the displayed TextBlock contents, but this property is
-	/// unchanged.
+	/// updates to the displayed TextBlock contents. Even if the displayed
+	/// text is trimmed, this property is unchanged and retains the full path.
 	/// </summary>
 	public static readonly DependencyProperty TextProperty =
 		DependencyProperty.Register(
@@ -110,17 +110,19 @@ public class PathTrimmingTextBlock : Control
 		{
 			// The filename suffix doesn't fit, so truncate it.
 			_textBlock.Text = TruncateText(_filename, _availableWidth);
-			return;
 		}
+		else
+		{
+			// The filename suffix fits, so the next step is to prepend as
+			// much of the directory portion of the path as will fit in the
+			// remaining space.
+			_availableWidth -= filenameWidth;
 
-		// The filename suffix fits, so the next step is to prepend as much
-		// of the directory portion of the path as will fit in the space left.
-		_availableWidth -= filenameWidth;
+			string truncatedDirectoryPath = TruncateText(_directoryPath,
+				_availableWidth, "", false);
 
-		string truncatedDirectoryPath = TruncateText(_directoryPath,
-			_availableWidth, "", false);
-
-		_textBlock.Text = truncatedDirectoryPath + filenameAndEllipsis;
+			_textBlock.Text = truncatedDirectoryPath + filenameAndEllipsis;
+		}
 	}
 
 	/// <summary>
@@ -140,7 +142,9 @@ public class PathTrimmingTextBlock : Control
 	private string TruncateText(string text, double availableWidth,
 		string prefix = "...", bool truncateLeft = true)
 	{
-		// If the prefix and text fit, return it without truncating.
+		// If the prefix and text fit, return it without truncating. Note: the
+		// "...\filename.txt" text will already have been tested; this tests
+		// "...filename.txt" without the directory separator char.
 		if (MeasureStringWidth(prefix + text) <= availableWidth)
 		{
 			return prefix + text;

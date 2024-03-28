@@ -3,7 +3,6 @@
     <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
     <RootNamespace>PathTrimmingTextBlock</RootNamespace>
-    <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
     <UseWinUI>true</UseWinUI>
     <Title>PathTrimmingTextBlock</Title>
     <Description>A WinUI control derived from TextBlock which uses a path trimming method to fit over-long text strings in the available space.</Description>
@@ -14,6 +13,8 @@
     <PackageProjectUrl>https://github.com/daverayment/PathTrimmingTextBlock</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>WinUI;control;custom control;TextBlock;TextBox;path trimming;path;trim;ellipsis;ellipses;truncate;truncation;formatting</PackageTags>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<RepositoryUrl>https://github.com/daverayment/PathTrimmingTextBlock.git</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
