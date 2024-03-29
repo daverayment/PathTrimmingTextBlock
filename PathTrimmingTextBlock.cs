@@ -1,4 +1,5 @@
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls;
 using System.IO;
 
@@ -51,6 +52,16 @@ public class PathTrimmingTextBlock : Control
 		set => SetValue(TextProperty, value);
 	}
 
+	/// <summary>
+	/// Whether the currently-displayed path has been trimmed to fit the
+	/// available width.
+	/// </summary>
+	public bool IsTrimmed
+	{
+		get;
+		private set;
+	}
+
 	public PathTrimmingTextBlock()
 	{
 		this.DefaultStyleKey = typeof(PathTrimmingTextBlock);
@@ -70,6 +81,10 @@ public class PathTrimmingTextBlock : Control
 		{
 			_measurement = Helpers.TextMeasurementFactory.Create(_textBlock);
 			ApplyPathTrimming();
+
+			AutomationProperties.SetName(_textBlock, Text);
+			AutomationProperties.SetHelpText(_textBlock,
+				"Displays a file path, truncated if necessary to fit the available space.");
 		}
 	}
 
@@ -98,9 +113,12 @@ public class PathTrimmingTextBlock : Control
 		// Does the full path fit?
 		if (MeasureStringWidth(Text) <= _availableWidth)
 		{
+			this.IsTrimmed = false;
 			_textBlock.Text = this.Text;
 			return;
 		}
+
+		this.IsTrimmed = true;
 
 		// First check to see if "...\<filename>" fits.
 		string filenameAndEllipsis = "...\\" + _filename;
@@ -108,7 +126,7 @@ public class PathTrimmingTextBlock : Control
 
 		if (filenameWidth > _availableWidth)
 		{
-			// The filename suffix doesn't fit, so truncate it.
+			// "...\<filename>" doesn't fit, so truncate it.
 			_textBlock.Text = TruncateText(_filename, _availableWidth);
 		}
 		else
@@ -157,6 +175,13 @@ public class PathTrimmingTextBlock : Control
 		if (prefix.Length > 0)
 		{
 			availableWidth -= MeasureStringWidth(prefix);
+		}
+
+		if (availableWidth < 0)
+		{
+			// There isn't space enough to display even the prefix, so return
+			// a single ellipsis character to represent the full truncation.
+			return "…";
 		}
 
 		// The 'good' condition boundary where this number of characters have
