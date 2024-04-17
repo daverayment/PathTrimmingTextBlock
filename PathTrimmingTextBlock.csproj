@@ -12,7 +12,7 @@
     <PackageIcon>Icon.png</PackageIcon>
     <PackageProjectUrl>https://github.com/daverayment/PathTrimmingTextBlock</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageTags>WinUI;control;custom control;TextBlock;TextBox;path trimming;path;trim;ellipsis;ellipses;truncate;truncation;formatting</PackageTags>
+    <PackageTags>WinUI;control;custom control;TextBlock;TextBox;path trimming;path;paths;trim;trimming;ellipsis;ellipses;truncate;truncation;formatting</PackageTags>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<RepositoryUrl>https://github.com/daverayment/PathTrimmingTextBlock.git</RepositoryUrl>
   </PropertyGroup>

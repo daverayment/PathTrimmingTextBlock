@@ -59,8 +59,20 @@ The `TextMeasurement` class caches the measured widths of text strings to avoid 
 
 A binary chop method is used when truncating candidate strings to fit in the available space. This is efficient and the majority of paths are fully calculated in 6 measurement passes or fewer.
 
+## Cache Control
+Although it is recommended to always use the cache, it may be disabled with the following:
+
+```csharp
+PathTrimmingTextBlock.Helpers.CacheControl.IsCacheEnabled = false;
+```
+Likewise, setting this back to `true` will re-enable usage of the cache. Already-cached values are retained when the cache is disabled, so re-enabling it will use them again.
+
+If you want to ensure the cache is never used, you should set `IsCacheEnabled` to `false` before rendering a form containing `PathTrimmingTextBlock` instances.
+
+More fine-grained control over the cache may be included in future releases. Please let me know which options would be useful for you by [raising an issue](https://github.com/daverayment/PathTrimmingTextBlock/issues).
+
 ## Performance Metrics
-The `PathTrimmingTextBlock` includes a built-in `EventSource` called "PathTrimmingTextBlock-Metrics" that provides performance metrics related to text measurement and caching. These metrics are currently present for debugging and development purposes, but may be useful for monitoring and optimising the control's performance in your own application. The default implementation should, however, be suitable for the vast majority of applications.
+The `PathTrimmingTextBlock` includes a built-in `EventSource` called "PathTrimmingTextBlock-Metrics" that provides performance metrics related to text measurement and caching. These metrics are currently present for debugging and development purposes, but may be useful for monitoring and optimising the control's performance in your own application. The control's default implementation should, however, be suitable for the vast majority of applications.
 
 To access the performance metrics, you can use the the `dotnet-counters` tool:
 

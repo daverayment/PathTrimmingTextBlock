@@ -2,7 +2,7 @@
 using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Text;
 using Microsoft.UI.Xaml.Controls;
-using Windows.Foundation;
+using PathTrimmingTextBlock.Helpers;
 
 namespace DaveRayment.Controls.Helpers;
 
@@ -31,12 +31,6 @@ public class TextMeasurement
 	private ConcurrentDictionary<string, double> _stringToWidthCache = new();
 
 	/// <summary>
-	/// Caches the <see cref="Size"/> of text strings to avoid recalculation
-	/// when the same text is passed in again.
-	/// </summary>
-	private ConcurrentDictionary<string, Size> _stringToSizeCache = new();
-
-	/// <summary>
 	/// Initialise a new instance of the <see cref="TextMeasurement"/> class
 	/// using the font properties copied from the supplied <see cref="TextBlock"/>
 	/// control.
@@ -56,42 +50,39 @@ public class TextMeasurement
 	}
 
 	/// <summary>
-	/// Measures the width of the given text string using the current
-	/// text format settings.
+	/// Measures the width of the given text string using the current text
+	/// format settings. Measurements are cached if caching is enabled.
 	/// </summary>
 	/// <param name="text">The text to measure.</param>
 	/// <returns>The width of the text in pixels.</returns>
 	public double MeasureTextWidth(string text)
 	{
-		bool isCacheHit = true;
-		double width = _stringToWidthCache.GetOrAdd(text, t =>
+		if (!CacheControl.IsCacheEnabled)
 		{
-			isCacheHit = false;
-			using var layout = new CanvasTextLayout(_device, t, TextFormat,
-				float.MaxValue, float.MaxValue);
-			return layout.LayoutBounds.Width;
-		});
-		
-		// Update metrics.
-		Metrics.ControlMetricsEventSource.Instance.ReportMeasurement(isCacheHit);
+			return MeasureTextWidthInternal(text);
+		}
+		else
+		{
+			// Return cached width, if available, otherwise measure the text.
+			bool isCacheHit = true;
+			double width = _stringToWidthCache.GetOrAdd(text, t =>
+			{
+				isCacheHit = false;
+				return MeasureTextWidthInternal(t);
+			});
 
-		return width;
+			// Update metrics.
+			Metrics.ControlMetricsEventSource.Instance.ReportMeasurement(isCacheHit);
+
+			return width;
+		}
 	}
 
-	/// <summary>
-	/// Measure the size of the given text string using the current text
-	/// format settings.
-	/// </summary>
-	/// <param name="text">The text to measure.</param>
-	/// <returns>The <see cref="Size"/> of the text in pixels.</returns>
-	public Size MeasureText(string text)
+	private double MeasureTextWidthInternal(string text)
 	{
-		return _stringToSizeCache.GetOrAdd(text, t =>
-		{
-			using var layout = new CanvasTextLayout(_device, text, TextFormat,
-				 float.MaxValue, float.MaxValue);
-			return new Size(layout.LayoutBounds.Width, layout.LayoutBounds.Height);
-		});
+		using var layout = new CanvasTextLayout(_device, text, TextFormat,
+			float.MaxValue, float.MaxValue);
+		return layout.LayoutBounds.Width;
 	}
 }
 
@@ -113,7 +104,7 @@ public class TextMeasurementFactory
 	/// based on the font properties of the supplied <see cref="TextBlock"/>.
 	/// </summary>
 	/// <param name="textBlock">The <see cref="TextBlock"/> control from
-	/// which to obtain the font properties.</param>
+	/// which to query the font properties.</param>
 	/// <returns>A <see cref="TextMeasurement"/> instance configured with
 	/// the given <see cref="TextBlock"/>'s font properties.</returns>
 	public static TextMeasurement Create(TextBlock textBlock)
