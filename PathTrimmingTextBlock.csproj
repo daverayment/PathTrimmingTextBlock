@@ -5,7 +5,7 @@
     <RootNamespace>PathTrimmingTextBlock</RootNamespace>
     <UseWinUI>true</UseWinUI>
     <Title>PathTrimmingTextBlock</Title>
-    <Description>A WinUI control derived from TextBlock which uses a path trimming method to fit over-long text strings in the available space.</Description>
+    <Description>A WinUI control derived from TextBlock which uses a path trimming method to fit overlong text strings in the available space.</Description>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Authors>daverayment</Authors>
     <Copyright>Copyright (c) 2024 David Rayment</Copyright>
