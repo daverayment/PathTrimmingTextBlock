@@ -9,6 +9,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Authors>daverayment</Authors>
     <Copyright>Copyright (c) 2024 David Rayment</Copyright>
+	<PackageId>DaveRayment.Controls.PathTrimmingTextBlock</PackageId>
     <PackageIcon>Icon.png</PackageIcon>
     <PackageProjectUrl>https://github.com/daverayment/PathTrimmingTextBlock</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>

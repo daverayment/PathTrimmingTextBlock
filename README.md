@@ -1,10 +1,12 @@
 ﻿# PathTrimmingTextBlock
 
-A custom WinUI control that automatically applies path-ellipsis trimming to its contents if the available space is too narrow to contain the full text.
+A custom WinUI control that automatically applies path-ellipsis trimming to its contents when the available space is too narrow to contain the full text.
 
 ## Illustration
 
-[![Animated Illustration](https://github.com/daverayment/PathTrimmingTextBlock/assets/7127766/4dba348f-b260-4aeb-bf2e-e21570948c2b)](https://github.com/daverayment/PathTrimmingTextBlock/assets/7127766/8308514a-f4f4-4270-8dba-f15189d21fa9)
+![Mid-Squash Image](https://raw.githubusercontent.com/daverayment/ProjectMedia/main/Mid-Squash%2050.png?raw=true)
+
+[Animated Version](https://html-preview.github.io/?url=https://github.com/daverayment/ProjectMedia/blob/main/SquashAnim.html)
 
 ## Compatibility
 The control targets the Windows 10 SDK, version 1809 (10.0.17763) as a minimum. This corresponds to the October 2018 update of Windows 10.
